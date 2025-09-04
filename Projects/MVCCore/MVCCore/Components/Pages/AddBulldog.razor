@@ -1,0 +1,41 @@
+@page "/bulldogs/add"
+@rendermode InteractiveServer
+@using MVCCore.Api.Services
+@using MVCCore.Shared.Models
+@inject BulldogService BulldogService
+@inject NavigationManager Nav
+
+
+<h3>Add New Bulldog</h3>
+
+<EditForm Model="newDog" OnValidSubmit="HandleAdd">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<div class="mb-3">
+		<label for="nameInput">Name</label>
+		<InputText id="nameInput" @bind-Value="newDog.Name" class="form-control" />
+	</div>
+
+	<div class="mb-3">
+		<label>Breed</label>
+		<InputText @bind-Value="newDog.Breed" class="form-control" />
+	</div>
+
+	<div class="mb-3">
+		<label>Image URL</label>
+		<InputText @bind-Value="newDog.ImageUrl" class="form-control" />
+	</div>
+
+	<button type="submit" class="btn btn-primary">Add</button>
+</EditForm>
+
+@code {
+	private Bulldog newDog = new(); // no seeded values
+
+	private async Task HandleAdd()
+	{
+		await BulldogService.AddAsync(newDog);
+		Nav.NavigateTo("/bulldogs");
+	}
+}

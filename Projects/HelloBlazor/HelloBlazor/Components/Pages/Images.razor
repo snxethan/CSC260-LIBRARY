@@ -1,0 +1,21 @@
+﻿@page "/images"
+
+<PageTitle>Image Gallery</PageTitle>
+
+<h1>Images</h1>
+
+<p>This component displays all the images located within this project.</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+	@foreach (var image in imageFiles)
+	{
+		<img src="@($"Images/{image}")" alt="@image" style="width: 200px; height: auto;" />
+	}
+</div>
+
+@code {
+	private List<string> imageFiles = new()
+	{
+		"ethan-selfie.jpg",
+	};
+}

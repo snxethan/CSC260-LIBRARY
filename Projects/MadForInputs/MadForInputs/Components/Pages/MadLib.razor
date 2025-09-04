@@ -1,0 +1,85 @@
+﻿@page "/madlibs"
+@rendermode InteractiveServer
+
+<PageTitle>MadLibs</PageTitle>
+
+<h1>MadLibs</h1>
+
+@if (showStory)
+{
+	<div>
+		<p>
+			Once upon a time, there was a <span class="text-primary font-weight-bold">@noun1</span> who was very <span class="text-primary font-weight-bold">@adjective</span>. Every day, it would <span class="text-primary font-weight-bold">@verb</span> <span class="text-primary font-weight-bold">@adverb</span>, never missing a single morning.
+		</p>
+
+		<p>
+			It lived in a small cottage made entirely of <span class="text-primary font-weight-bold">@noun1</span>s, tucked away in a valley filled with other <span class="text-primary font-weight-bold">@adjective</span> creatures. Despite the peaceful life, the <span class="text-primary font-weight-bold">@noun1</span> longed for adventure.
+		</p>
+
+		<p>
+			One day, while out for a walk, it stumbled across a mysterious <span class="text-primary font-weight-bold">@noun2</span> in the middle of the forest. The <span class="text-primary font-weight-bold">@noun2</span> was unlike anything it had ever seen — equally <span class="text-primary font-weight-bold">@adjective</span>, and it seemed to <span class="text-primary font-weight-bold">@verb</span> <span class="text-primary font-weight-bold">@adverb</span> too.
+		</p>
+
+		<p>
+			Intrigued, the two began to <span class="text-primary font-weight-bold">@verb</span> together every day. They would play, explore, and share stories, becoming the best of friends. The <span class="text-primary font-weight-bold">@noun1</span> no longer felt lonely, and the <span class="text-primary font-weight-bold">@noun2</span> finally had someone who understood its <span class="text-primary font-weight-bold">@adjective</span> ways.
+		</p>
+
+		<p>
+			From that day forward, the <span class="text-primary font-weight-bold">@noun1</span> and the <span class="text-primary font-weight-bold">@noun2</span> went on countless adventures, always <span class="text-primary font-weight-bold">@verb</span>ing <span class="text-primary font-weight-bold">@adverb</span>, and proving that even the most unlikely friendships can become the most <span class="text-primary font-weight-bold">@adjective</span> stories of all.
+		</p>
+
+		<button class="btn btn-primary" @onclick="ResetForm">Create a new MadLib</button>
+	</div>
+}
+else
+{
+	<div>
+		<input placeholder="Noun" @bind="noun1" class="form-control mb-2" />
+		<input placeholder="Adjective" @bind="adjective" class="form-control mb-2" />
+		<input placeholder="Verb" @bind="verb" class="form-control mb-2" />
+		<input placeholder="Adverb" @bind="adverb" class="form-control mb-2" />
+		<input placeholder="Noun 2" @bind="noun2" class="form-control mb-2"/>
+		<button class="btn btn-success" @onclick="GenerateStory">Submit</button>
+		<p class="text-danger mt-2">@warningText</p>
+	</div>
+}
+
+
+
+@code {
+	//Your MadLib component should allow the user to create a single Mad Lib story that meets the following requirements:
+	// Use a form with ~5 fields to get ~5 words from the user. Each field should have a placeholder indicating what type of word is expected. (doesn't need to be exactly 5)
+	// There are 4 basic word types: noun, adjective, verb and adverb. You must use at least of 3 of these types.
+	// When the user hits submit, add their words to the appropriate blanks in your Mad Lib story. The user's words should be added to the story in the same order as they appear in the form.
+	// You can use an existing Mad Lib or create one of your own (or us AI to help create one), but make sure the story is short. Once the user's words are added, display the completed story to the user.
+	// When displaying the completed story, the user-provided words should be styled in a way that makes them stand out from the rest of the text. This is the only required styling for this app.
+	// When displaying the completed story, there should be a link that will take the user back to the original form with values cleared so they can try again if they wish.
+	// NOTE: Don't actually use a <form> tag in your solution. This will avoid any post-back shenanigans.
+
+	private string noun1 = string.Empty;
+	private string noun2 = string.Empty;
+	private string adjective = string.Empty;
+	private string verb = string.Empty;
+	private string adverb = string.Empty;
+	private bool showStory = false;
+
+	private string warningText = string.Empty;
+	private void GenerateStory()
+	{
+		if (string.IsNullOrWhiteSpace(noun1) || string.IsNullOrWhiteSpace(adjective) || string.IsNullOrWhiteSpace(verb) || string.IsNullOrWhiteSpace(adverb) || string.IsNullOrWhiteSpace(noun2))
+		{
+			warningText = "Please fill in all fields before submitting!";
+			return;
+		}
+		showStory = true;
+	}
+	private void ResetForm()
+	{
+		noun1 = string.Empty;
+		adjective = string.Empty;
+		verb = string.Empty;
+		adverb = string.Empty;
+		noun2 = string.Empty;
+		showStory = false;
+	}
+}

@@ -1,0 +1,67 @@
+﻿@page "/counter"
+@using System.Reflection.Metadata
+@rendermode InteractiveServer
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button style="@btnreset" @onclick="ResetCount" disabled="@DisabledCondition">Reset Count</button>
+
+@code {
+	private int currentCount = 0;
+	private Random random = new Random();
+	private bool DisabledCondition { get; set; } = true; // Initially disabled
+	private int randomRange = 10000; // Maximum range for random number generation
+	private Document? document;
+	String btnreset = "background-color: red; border-color: #1861ac;"; // Default button style
+
+
+	private void IncrementCount()
+	{
+
+		if (currentCount == 0)
+		{
+			currentCount = random.Next(1, 100);
+
+		}
+		else
+		{
+			bool trueOrFalse = random.Next(0, 2) == 1;
+			if (trueOrFalse)
+			{
+				currentCount += random.Next(1, randomRange);
+			}
+			else
+			{
+				currentCount -= random.Next(1, randomRange);
+			}
+		}
+
+		if (currentCount < 0)
+		{
+			// a button will appear to reset the count
+			DisabledCondition = false;
+		} else if(currentCount >= 0)
+		{
+			// Re-enable the reset button if the count is non-negative
+			DisabledCondition = true;
+		}
+	}
+
+	private void ResetCount()
+	{
+		currentCount = 0;
+		DisabledCondition = true; // Re-disable the reset button
+		randomRange = random.Next(1000,1000); // Change the range for the next increment
+
+		// random rgb for button
+		string bgColor = $"rgb({random.Next(256)}, {random.Next(256)}, {random.Next(256)})";
+		string borderColor = $"rgb({random.Next(256)}, {random.Next(256)}, {random.Next(256)})";
+
+		btnreset = $"background-color: {bgColor}; border-color: {borderColor};";
+	}
+}

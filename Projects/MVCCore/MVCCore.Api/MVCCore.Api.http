@@ -1,0 +1,6 @@
+@MVCCore.Api_HostAddress = http://localhost:5277
+
+GET {{MVCCore.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

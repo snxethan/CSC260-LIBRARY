@@ -1,0 +1,44 @@
+﻿@page "/bulldogs/edit/{Id:int}"
+@using MVCCore.Api.Services
+@using MVCCore.Shared.Models
+@inject BulldogService BulldogService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+
+<h3>Edit Bulldog</h3>
+
+@if (dog == null || dog.Id == 0)
+{
+	<p>Loading dog data...</p>
+}
+else
+{
+	<EditForm Model="dog" OnValidSubmit="EditDog" FormName="EditDogForm">
+		<InputText @bind-Value="dog.Name" placeholder="Name" class="form-control" />
+		<InputText @bind-Value="dog.Breed" placeholder="Breed" class="form-control" />
+		<InputText @bind-Value="dog.ImageUrl" placeholder="Image URL" class="form-control" />
+		<button type="submit" class="btn btn-success mt-2">Save</button>
+	</EditForm>
+}
+
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	private Bulldog dog = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		var result = await BulldogService.GetByIdAsync(Id);
+		if (result != null)
+			dog = result;
+	}
+
+	private async Task EditDog()
+	{
+		await BulldogService.UpdateAsync(Id, dog);
+		Nav.NavigateTo("/bulldogs");
+	}
+}

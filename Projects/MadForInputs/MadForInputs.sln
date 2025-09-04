@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadForInputs", "MadForInputs\MadForInputs.csproj", "{1F57CA43-3375-4B8D-A839-5A42984A0836}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F57CA43-3375-4B8D-A839-5A42984A0836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F57CA43-3375-4B8D-A839-5A42984A0836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F57CA43-3375-4B8D-A839-5A42984A0836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F57CA43-3375-4B8D-A839-5A42984A0836}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF0C8B96-356F-4141-ACAB-5DD9F81949CE}
+	EndGlobalSection
+EndGlobal

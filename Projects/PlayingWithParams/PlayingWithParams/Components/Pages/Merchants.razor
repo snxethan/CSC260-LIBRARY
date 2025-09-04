@@ -1,0 +1,53 @@
+﻿@page "/merchants"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+<PageTitle>Merchants</PageTitle>
+
+<h1>Merchants:</h1>
+
+<h3>Expensive Merchant:</h3>
+<a href="/shop/10000/100/100/10">Expensive Merchant</a>
+<br />  
+<h3>Cheap Merchant:</h3>
+<a href="/shop/10000/25/10/100">Cheap Merchant Merchant</a>
+<br />
+<h3>Stingy Merchant:</h3>
+<a href="/shop/10000/50/50/5">Stingy Merchant</a>
+<br />
+
+<h3>Custom Merchant:</h3>
+<label>Starting Gold: <input @bind="startingGold" type="number" /></label>
+<br />
+<label>Item Cost: <input @bind="cost" type="number" /></label>
+<br />
+<label>Markup: <input @bind="markup" type="number" /></label>
+<br />
+<label>Max Items: <input @bind="maxItems" type="number" /></label>
+<br />
+<button class="btn btn-success" @onclick="GoToCustomMerchant">Go to Merchant</button>
+
+
+@code {
+    // Display 3 links to specific merchants with different starting gold, item cost, markup and max items (all int values)
+    // Expensive Merchant (10,000 gold, 100 cost, 100 markup, 10 max items)
+    // Cheap Merchant (10,000 gold, 25 cost, 10 markup, 100 max items)
+    // Stingy Merchant (10,000 gold, 50 cost, 50 markup, 4 max items)
+    // Custom Merchant
+    // Let the user also choose a custom merchant by giving you gold, cost, markup and max items values in some text boxes
+    // Add a button called "Go to Merchant" that will take them to your shop route with the user's entered values
+    // This will require something I didn't directly show you in class. You'll need to use the NavigationManager to "redirect" them to the dynamic route. It's easy though.
+    // Add this directive to the top of your component
+    // @inject NavigationManager NavigationManager
+    // Then use the NavigationManger when you want to send them to the route
+    // NavigationManager.NavigateTo($"/shop/{startingGold}/{cost}/{markup}/{maxItems}");
+
+    private int startingGold = 10000;
+    private int cost = 50;
+    private int markup = 50;
+    private int maxItems = 10;
+    private void GoToCustomMerchant()
+    {
+	    NavigationManager.NavigateTo($"/shop/{startingGold}/{cost}/{markup}/{maxItems}");
+    }
+}

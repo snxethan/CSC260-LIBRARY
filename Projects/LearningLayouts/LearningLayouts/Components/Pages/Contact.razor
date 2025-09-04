@@ -1,0 +1,83 @@
+﻿@rendermode InteractiveServer
+@page "/contact"
+@using System.ComponentModel.DataAnnotations
+@using LearningLayouts.Components.Layout
+@layout MyLayout3
+
+<EditForm Model="@formData" OnValidSubmit="@HandleValidSubmit" FormName="ContactForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Name:</label>
+        <InputText class="form-control" @bind-Value="formData.Name" />
+        <ValidationMessage For="@(() => formData.Name)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Phone:</label>
+        <InputText class="form-control" @bind-Value="formData.Phone" />
+        <ValidationMessage For="@(() => formData.Phone)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email:</label>
+        <InputText class="form-control" @bind-Value="formData.Email" />
+        <ValidationMessage For="@(() => formData.Email)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Subject:</label>
+        <InputText class="form-control" @bind-Value="formData.Subject" />
+        <ValidationMessage For="@(() => formData.Subject)" />
+    </div>
+
+    <div class="mb-3">
+        <label>Message:</label>
+        <InputTextArea class="form-control" @bind-Value="formData.Message" />
+        <ValidationMessage For="@(() => formData.Message)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@if (submitted)
+{
+    <div class="mt-4 alert alert-success">
+        <h5>Submitted Information</h5>
+        <p><strong>Name:</strong> @formData.Name</p>
+        <p><strong>Phone:</strong> @formData.Phone</p>
+        <p><strong>Email:</strong> @formData.Email</p>
+        <p><strong>Subject:</strong> @formData.Subject</p>
+        <p><strong>Message:</strong> @formData.Message</p>
+    </div>
+}
+
+@code {
+    private FormModel formData = new();
+    private bool submitted = false;
+
+    private void HandleValidSubmit()
+    {
+        submitted = true;
+    }
+
+    public class FormModel
+    {
+        [Required(ErrorMessage = "Name is required.")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Phone is required.")]
+        public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Subject is required.")]
+        public string Subject { get; set; }
+
+        [Required(ErrorMessage = "Message is required.")]
+        public string Message { get; set; }
+    }
+}

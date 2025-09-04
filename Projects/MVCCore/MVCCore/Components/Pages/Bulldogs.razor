@@ -1,0 +1,46 @@
+﻿@page "/bulldogs"
+@using MVCCore.Api.Services
+@using MVCCore.Shared.Models
+@inject BulldogService BulldogService
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+
+<h1>Bulldog Gallery</h1>
+
+@if (bulldogs == null)
+{
+	<p>Loading...</p>
+}
+else
+{
+	<div class="gallery">
+		@foreach (var dog in bulldogs)
+		{
+			<div class="card">
+				<img src="@dog.ImageUrl" />
+				<h3>@dog.Name</h3>
+				<p>@dog.Breed</p>
+				<button class="btn btn-danger" @onclick="() => DeleteDog(dog.Id)">Delete</button>
+				<button class="btn btn-secondary" @onclick="@(() => Nav.NavigateTo($"/bulldogs/edit/{dog.Id}"))">Edit</button>
+			</div>
+		}
+	</div>
+}
+
+@code {
+	private List<Bulldog>? bulldogs;
+
+	protected override async Task OnInitializedAsync()
+	{
+		bulldogs = await BulldogService.GetAllAsync();
+	}
+
+	private async Task DeleteDog(int id)
+	{
+		await BulldogService.DeleteAsync(id);
+		bulldogs = await BulldogService.GetAllAsync(); // refresh
+		StateHasChanged(); // Force re-render
+	}
+}
+}
