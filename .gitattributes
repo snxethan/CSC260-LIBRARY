@@ -1,2 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Force Razor and CSHTML files to be detected as C#
+*.razor linguist-language=C#
+*.cshtml linguist-language=C#
+
+# Ignore static/vendor files from language stats
+wwwroot/* linguist-vendored
