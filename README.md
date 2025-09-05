@@ -127,4 +127,6 @@ If you encounter issues:
 
 ---
 
-*This repository is part of the CSC260 Computer Science course curriculum.*
+## Author(s)
+
+- [**Ethan Townsend (snxethan)**](www.ethantownsend.dev)
